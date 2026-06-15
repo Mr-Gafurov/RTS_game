@@ -41,6 +41,10 @@
         <div class="header">
             <h1>GENERALS: COMMAND CENTER (V3.0)</h1>
             <div>
+                <select id="admin-lang" onchange="changeAdminLang()" class="input" style="width: 100px; padding: 2px;">
+                    <option value="ru">RU</option>
+                    <option value="en">EN</option>
+                </select>
                 <span id="user-display-email">ttajhacker@gmail.com</span>
                 <span class="role-tag superadmin" id="user-display-role">SUPERADMIN</span>
                 <button onclick="logout()" class="btn" style="margin-left: 10px; padding: 5px 10px;">ВЫЙТИ</button>
@@ -206,6 +210,12 @@
             if (!playerId) return alert("Введите ID игрока");
             // API call to reset ELO
             alert("ELO игрока сброшен до 1000");
+        }
+
+        function changeAdminLang() {
+            const lang = document.getElementById('admin-lang').value;
+            alert("Язык панели изменен на: " + lang.toUpperCase());
+            // Здесь можно добавить логику смены текстов на странице
         }
 
         function hideModal() {
