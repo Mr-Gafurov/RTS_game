@@ -1,0 +1,13 @@
+{
+  "factions": {
+    "usa": "#0044ff",
+    "china": "#ff0000",
+    "gla": "#00ff00"
+  },
+  "ui": {
+    "background": "#1a1a1a",
+    "accent": "#fbc02d",
+    "text": "#ffffff",
+    "danger": "#d32f2f"
+  }
+}

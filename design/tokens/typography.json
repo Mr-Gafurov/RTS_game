@@ -1,0 +1,12 @@
+{
+  "fonts": {
+    "primary": "Roboto, sans-serif",
+    "header": "Orbitron, sans-serif"
+  },
+  "sizes": {
+    "small": "12px",
+    "medium": "16px",
+    "large": "24px",
+    "xlarge": "32px"
+  }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>GENERALS: Mobile Command HUD</title>
+    <style>
+        body { background: rgba(0,0,0,0.5); color: white; font-family: 'Orbitron', sans-serif; margin: 0; padding: 20px; }
+        .top-bar { display: flex; justify-content: space-between; font-size: 24px; border-bottom: 2px solid #fbc02d; padding-bottom: 10px; }
+        .resource { color: #fbc02d; }
+        .bottom-panel { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; }
+        .btn { background: #1a1a1a; border: 1px solid #fbc02d; color: white; padding: 15px 30px; cursor: pointer; }
+        .btn:hover { background: #fbc02d; color: black; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="resource">ДЕНЬГИ: $10,000</div>
+        <div>США: ГЕНЕРАЛ ГРАНТ</div>
+        <div class="resource">ЭНЕРГИЯ: 100%</div>
+    </div>
+
+    <div class="bottom-panel">
+        <button class="btn">СТРОИТЬ</button>
+        <button class="btn">ЮНИТЫ</button>
+        <button class="btn">СПОСОБНОСТИ</button>
+    </div>
+</body>
+</html>
