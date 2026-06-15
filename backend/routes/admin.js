@@ -84,4 +84,12 @@ router.post('/events/start', (req, res) => {
     res.json({ success: true });
 });
 
+// Обновление баланса в реальном времени
+router.post('/balance/update', (req, res) => {
+    const { unitId, field, value } = req.body;
+    console.log(`[Admin] Баланс обновлен: ${unitId} -> ${field}: ${value}`);
+    // Сохранение в БД и раздача через GET /api/balance/current
+    res.json({ success: true });
+});
+
 module.exports = router;
