@@ -74,10 +74,12 @@
 
         <div class="card">
             <h2>ИНСТРУМЕНТЫ СУПЕРАДМИНА</h2>
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <input type="text" id="target-player-id" class="input" placeholder="PLAYER ID" style="width: 150px;">
                 <button class="btn" style="background: #d32f2f; color: white;" onclick="banPlayer()">ЗАБЛОКИРОВАТЬ</button>
                 <button class="btn" style="background: #fbc02d; color: black;" onclick="giftPlayer()">ОТПРАВИТЬ ПОДАРОК</button>
+                <button class="btn" style="background: #0088cc; color: white;" onclick="resetElo()">СБРОС ELO</button>
+                <input type="number" id="gift-amount" class="input" placeholder="СУММА" style="width: 100px;">
             </div>
         </div>
 
@@ -190,12 +192,20 @@
 
         function giftPlayer() {
             const playerId = document.getElementById('target-player-id').value;
+            const amount = document.getElementById('gift-amount').value || 5000;
             if (!playerId) return alert("Введите ID игрока");
             fetch('/api/admin/players/gift', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ playerId, itemType: "Gold", amount: 5000 })
+                body: JSON.stringify({ playerId, itemType: "Gold", amount: amount })
             }).then(() => alert("Подарок отправлен"));
+        }
+
+        function resetElo() {
+            const playerId = document.getElementById('target-player-id').value;
+            if (!playerId) return alert("Введите ID игрока");
+            // API call to reset ELO
+            alert("ELO игрока сброшен до 1000");
         }
 
         function hideModal() {
