@@ -2,30 +2,202 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>GENERALS: Dashboard</title>
+    <title>GENERALS: Superadmin Panel</title>
     <style>
-        body { background: #121212; color: #00ff00; font-family: monospace; padding: 20px; }
-        .stat-card { border: 1px solid #00ff00; padding: 15px; margin-bottom: 10px; background: #1a1a1a; }
-        .online { color: #fbc02d; font-weight: bold; }
-        h1 { border-bottom: 1px solid #00ff00; padding-bottom: 10px; }
+        body { background: #0a0a0a; color: #00ff41; font-family: 'Courier New', monospace; margin: 0; padding: 0; }
+        .container { padding: 20px; }
+        .header { border-bottom: 2px solid #00ff41; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .card { background: #111; border: 1px solid #333; padding: 20px; margin-top: 20px; }
+        .btn { background: #00ff41; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .input { background: #222; border: 1px solid #00ff41; color: #00ff41; padding: 10px; width: 250px; margin-bottom: 10px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px; }
+        .stat-item { text-align: center; border: 1px solid #00ff41; padding: 10px; }
+        .role-tag { padding: 2px 8px; border-radius: 4px; font-size: 12px; background: #333; }
+        .superadmin { border: 1px solid gold; color: gold; }
+        .admin { border: 1px solid #00ff41; color: #00ff41; }
+        .worker { border: 1px solid #888; color: #888; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border-bottom: 1px solid #333; padding: 10px; text-align: left; }
+        #modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #111; border: 2px solid #00ff41; padding: 30px; z-index: 100; }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99; }
     </style>
 </head>
 <body>
-    <h1>GENERALS: COMMAND CENTER DASHBOARD</h1>
-
-    <div class="stat-card">
-        <div>СТАТУС СЕРВЕРА: <span class="online">ОНЛАЙН</span></div>
-        <div>АКТИВНЫХ КОМНАТ: <span id="roomsCount">12</span></div>
-        <div>ИГРОКОВ ОНЛАЙН: <span id="playersCount">156</span></div>
+    <!-- Login View -->
+    <div id="login-view" class="container">
+        <div class="card" style="width: 400px; margin: 100px auto;">
+            <h2 style="text-align: center;">ВХОД В СИСТЕМУ</h2>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <input type="email" id="login-email" class="input" placeholder="EMAIL" value="ttajhacker@gmail.com">
+                <input type="password" id="login-password" class="input" placeholder="PASSWORD" value="supersecurepassword">
+                <button onclick="login()" class="btn" style="width: 270px;">АВТОРИЗАЦИЯ</button>
+            </div>
+            <p style="font-size: 10px; color: #444; margin-top: 20px; text-align: center;">ДОСТУП ТОЛЬКО ДЛЯ АВТОРИЗОВАННОГО ПЕРСОНАЛА</p>
+        </div>
     </div>
 
-    <div class="stat-card">
-        <h3>ПОСЛЕДНИЕ СОБЫТИЯ:</h3>
-        <ul id="logs">
-            <li>[12:00] Матч #452 завершен (Победа США)</li>
-            <li>[12:05] Новый турнир "Буря в пустыне" создан</li>
-            <li>[12:10] Подозрение на чит: Игрок_99 (SpeedHack)</li>
-        </ul>
+    <!-- Dashboard View -->
+    <div id="dashboard-view" class="container" style="display: none;">
+        <div class="header">
+            <h1>GENERALS: COMMAND CENTER (V3.0)</h1>
+            <div>
+                <span id="user-display-email">ttajhacker@gmail.com</span>
+                <span class="role-tag superadmin" id="user-display-role">SUPERADMIN</span>
+                <button onclick="logout()" class="btn" style="margin-left: 10px; padding: 5px 10px;">ВЫЙТИ</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-item"><h3>ОНЛАЙН</h3><p id="online-count">42</p></div>
+            <div class="stat-item"><h3>КОМНАТЫ</h3><p id="rooms-count">5</p></div>
+            <div class="stat-item"><h3>UPTIME</h3><p>2d 4h</p></div>
+            <div class="stat-item"><h3>СЕРВЕР</h3><p>СТАБИЛЕН</p></div>
+        </div>
+
+        <div class="card">
+            <h2>УПРАВЛЕНИЕ ПЕРСОНАЛОМ</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>EMAIL</th>
+                        <th>РОЛЬ</th>
+                        <th>СТАТУС</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body">
+                    <!-- Заполняется динамически -->
+                </tbody>
+            </table>
+            <br>
+            <button class="btn" onclick="showModal()">+ СОЗДАТЬ УЧЕТНУЮ ЗАПИСЬ</button>
+        </div>
+
+        <div class="card">
+            <h2>ЛОГИ СОБЫТИЙ</h2>
+            <div id="logs" style="height: 200px; overflow-y: auto; background: #000; padding: 10px; font-size: 12px; border: 1px solid #333;">
+                <div style="color: #444;">[14:20:01] Инициализация систем...</div>
+                <div style="color: #00ff41;">[14:20:05] Superadmin ttajhacker вошел в систему.</div>
+                <div style="color: #fbc02d;">[14:21:10] Матч #123 запущен: USA vs China.</div>
+            </div>
+        </div>
     </div>
+
+    <!-- Modal for Creating User -->
+    <div id="overlay" onclick="hideModal()"></div>
+    <div id="modal">
+        <h3>СОЗДАНИЕ СОТРУДНИКА</h3>
+        <input type="email" id="new-email" class="input" placeholder="EMAIL"><br>
+        <input type="password" id="new-password" class="input" placeholder="PASSWORD"><br>
+        <select id="new-role" class="input">
+            <option value="Worker">Worker</option>
+            <option value="Admin">Admin</option>
+            <option value="Superadmin">Superadmin</option>
+        </select><br>
+        <button onclick="createUser()" class="btn">СОХРАНИТЬ</button>
+        <button onclick="hideModal()" class="btn" style="background: #333; color: #fff;">ОТМЕНА</button>
+    </div>
+
+    <script>
+        let currentUser = null;
+
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            fetch('/api/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    currentUser = data.user;
+                    document.getElementById('login-view').style.display = 'none';
+                    document.getElementById('dashboard-view').style.display = 'block';
+                    document.getElementById('user-display-email').innerText = currentUser.email;
+                    document.getElementById('user-display-role').innerText = currentUser.role.toUpperCase();
+
+                    fetchStats();
+                    fetchUsers();
+                } else {
+                    alert("Ошибка авторизации: " + data.message);
+                }
+            });
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('login-view').style.display = 'block';
+            document.getElementById('dashboard-view').style.display = 'none';
+        }
+
+        function fetchStats() {
+            fetch('/api/admin/stats')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('online-count').innerText = data.playersOnline;
+                    document.getElementById('rooms-count').innerText = data.activeRooms;
+                });
+        }
+
+        function fetchUsers() {
+            fetch('/api/admin/users')
+                .then(res => res.json())
+                .then(users => {
+                    const tbody = document.getElementById('users-table-body');
+                    tbody.innerHTML = '';
+                    users.forEach(user => {
+                        const tr = document.createElement('tr');
+                        const roleClass = user.role.toLowerCase();
+                        tr.innerHTML = `
+                            <td>${user.email}</td>
+                            <td><span class="role-tag ${roleClass}">${user.role}</span></td>
+                            <td>АКТИВЕН</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                });
+        }
+
+        function showModal() {
+            if (currentUser.role !== 'Superadmin') {
+                alert("Доступ запрещен. Требуются права Superadmin.");
+                return;
+            }
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function hideModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function createUser() {
+            const email = document.getElementById('new-email').value;
+            const password = document.getElementById('new-password').value;
+            const role = document.getElementById('new-role').value;
+
+            fetch('/api/admin/users/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password, role })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    hideModal();
+                    fetchUsers();
+                    alert("Пользователь создан успешно!");
+                }
+            });
+        }
+
+        // Авто-обновление статистики
+        setInterval(() => {
+            if (currentUser) fetchStats();
+        }, 5000);
+    </script>
 </body>
 </html>
