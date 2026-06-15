@@ -35,4 +35,18 @@ router.post('/users/create', (req, res) => {
     res.json({ success: true });
 });
 
+// Бан игрока
+router.post('/players/ban', (req, res) => {
+    const { playerId, reason } = req.body;
+    console.log(`[Admin] Игрок ${playerId} забанен. Причина: ${reason}`);
+    res.json({ success: true });
+});
+
+// Отправка подарков
+router.post('/players/gift', (req, res) => {
+    const { playerId, itemType, amount } = req.body;
+    console.log(`[Admin] Отправлен подарок игроку ${playerId}: ${itemType} x${amount}`);
+    res.json({ success: true });
+});
+
 module.exports = router;
