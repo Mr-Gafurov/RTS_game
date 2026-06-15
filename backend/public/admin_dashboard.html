@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>GENERALS: Dashboard</title>
+    <style>
+        body { background: #121212; color: #00ff00; font-family: monospace; padding: 20px; }
+        .stat-card { border: 1px solid #00ff00; padding: 15px; margin-bottom: 10px; background: #1a1a1a; }
+        .online { color: #fbc02d; font-weight: bold; }
+        h1 { border-bottom: 1px solid #00ff00; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>GENERALS: COMMAND CENTER DASHBOARD</h1>
+
+    <div class="stat-card">
+        <div>СТАТУС СЕРВЕРА: <span class="online">ОНЛАЙН</span></div>
+        <div>АКТИВНЫХ КОМНАТ: <span id="roomsCount">12</span></div>
+        <div>ИГРОКОВ ОНЛАЙН: <span id="playersCount">156</span></div>
+    </div>
+
+    <div class="stat-card">
+        <h3>ПОСЛЕДНИЕ СОБЫТИЯ:</h3>
+        <ul id="logs">
+            <li>[12:00] Матч #452 завершен (Победа США)</li>
+            <li>[12:05] Новый турнир "Буря в пустыне" создан</li>
+            <li>[12:10] Подозрение на чит: Игрок_99 (SpeedHack)</li>
+        </ul>
+    </div>
+</body>
+</html>
