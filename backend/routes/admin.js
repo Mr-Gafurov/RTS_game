@@ -26,7 +26,9 @@ router.get('/stats', (req, res) => {
 
 // Управление пользователями (только для Superadmin)
 router.get('/users', (req, res) => {
-    res.json(users);
+    // Не отправляем пароли в ответе
+    const sanitizedUsers = users.map(u => ({ email: u.email, role: u.role }));
+    res.json(sanitizedUsers);
 });
 
 router.post('/users/create', (req, res) => {
