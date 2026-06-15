@@ -1,0 +1,113 @@
+{
+  "stage": "Stage 1 Prototype",
+  "assets": [
+    {
+      "name": "Infantry",
+      "type": "unit",
+      "faction": "USA",
+      "description": "Modern US soldier in desert camo, low-poly style. Carrying a rifle, tactical vest and helmet. Dominant colors: Tan, olive green.",
+      "poly_budget": "500-800 tris",
+      "size_meters": "1.8m height",
+      "reference_search": "Kenney modern soldier"
+    },
+    {
+      "name": "Tank",
+      "type": "unit",
+      "faction": "USA",
+      "description": "Modern main battle tank similar to M1 Abrams. Low-poly, desert tan color, rotating turret with a long cannon barrel.",
+      "poly_budget": "1000-1500 tris",
+      "size_meters": "8m long, 3.5m wide",
+      "reference_search": "Kenney tank desert"
+    },
+    {
+      "name": "Artillery",
+      "type": "unit",
+      "faction": "USA",
+      "description": "Mobile self-propelled howitzer. Tracked vehicle with a large elevating gun turret. Desert tan camouflage.",
+      "poly_budget": "1000-1500 tris",
+      "size_meters": "9m long, 3.5m wide",
+      "reference_search": "Kenney artillery"
+    },
+    {
+      "name": "CommandCenter",
+      "type": "building",
+      "faction": "USA",
+      "description": "Large concrete base structure with satellite dishes and antennas on top. Military command post aesthetic. Tan and grey colors.",
+      "poly_budget": "2000-3000 tris",
+      "size_meters": "20m x 20m footprint",
+      "reference_search": "Quaternius base building"
+    },
+    {
+      "name": "Barracks",
+      "type": "building",
+      "faction": "USA",
+      "description": "Low-poly military barracks building. Rectangular structure with corrugated metal roof and sandbags near the entrance.",
+      "poly_budget": "1500-2000 tris",
+      "size_meters": "12m x 8m footprint",
+      "reference_search": "Kenney barracks"
+    },
+    {
+      "name": "Factory",
+      "type": "building",
+      "faction": "USA",
+      "description": "Industrial war factory with large doors for vehicles. Flat roof with pipes and small chimneys. Concrete and metal textures.",
+      "poly_budget": "2000-2500 tris",
+      "size_meters": "15m x 15m footprint",
+      "reference_search": "Kenney factory"
+    },
+    {
+      "name": "SupplyDepot",
+      "type": "building",
+      "faction": "USA",
+      "description": "Military supply warehouse. Contains crates and barrels outside. Simple metal structure with loading dock.",
+      "poly_budget": "1500-2000 tris",
+      "size_meters": "10m x 12m footprint",
+      "reference_search": "Kenney warehouse"
+    },
+    {
+      "name": "Grass_Texture",
+      "type": "environment",
+      "faction": "neutral",
+      "description": "Stylized seamless grass texture for terrain. Vibrant green with slight variations in shade.",
+      "poly_budget": "N/A",
+      "size_meters": "2m x 2m tile",
+      "reference_search": "Kenney grass texture"
+    },
+    {
+      "name": "Sand_Texture",
+      "type": "environment",
+      "faction": "neutral",
+      "description": "Desert sand seamless texture. Warm yellowish-tan color with subtle wind ripples.",
+      "poly_budget": "N/A",
+      "size_meters": "2m x 2m tile",
+      "reference_search": "Kenney sand texture"
+    },
+    {
+      "name": "Road_Texture",
+      "type": "environment",
+      "faction": "neutral",
+      "description": "Dark asphalt road texture with white or yellow dashed lines in the middle.",
+      "poly_budget": "N/A",
+      "size_meters": "4m wide segment",
+      "reference_search": "Kenney road texture"
+    },
+    {
+      "name": "UI_Icons",
+      "type": "icon",
+      "faction": "neutral",
+      "description": "Set of flat minimalist UI icons for units and buildings. White silhouette on transparent background.",
+      "poly_budget": "N/A",
+      "size_meters": "256x256 px",
+      "reference_search": "Kenney game icons"
+    },
+    {
+      "name": "Minimap_Icons",
+      "type": "icon",
+      "faction": "neutral",
+      "description": "Tiny circle and square icons for minimap representation. Colored by faction (Blue/Red/Green).",
+      "poly_budget": "N/A",
+      "size_meters": "32x32 px",
+      "reference_search": "Kenney minimap icons"
+    }
+  ]
+}

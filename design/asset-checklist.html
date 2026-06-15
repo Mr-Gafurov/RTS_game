@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>GENERALS: Asset Checklist</title>
+    <style>
+        body { background: #1a1a1a; color: #eee; font-family: 'Segoe UI', sans-serif; padding: 40px; }
+        h1 { color: #fbc02d; border-bottom: 2px solid #fbc02d; padding-bottom: 10px; }
+        h2 { margin-top: 30px; color: #00ff41; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .asset-card { background: #222; border: 1px solid #444; padding: 15px; border-radius: 8px; position: relative; }
+        .asset-card:hover { border-color: #fbc02d; }
+        .type-tag { font-size: 10px; text-transform: uppercase; background: #333; padding: 2px 6px; border-radius: 4px; color: #888; }
+        .checkbox { position: absolute; top: 15px; right: 15px; width: 20px; height: 20px; cursor: pointer; }
+        .desc { font-size: 12px; color: #aaa; margin: 10px 0; }
+        .specs { font-size: 11px; color: #888; background: #1a1a1a; padding: 5px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🎖️ Asset Checklist — Stage 1 Prototype</h1>
+
+    <h2>🎮 Units (USA)</h2>
+    <div class="grid">
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">unit</span>
+            <h3>Infantry</h3>
+            <p class="desc">Modern US soldier in desert camo. Low-poly rifleman.</p>
+            <div class="specs">Budget: 800 tris | Ref: Kenney modern soldier</div>
+        </div>
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">unit</span>
+            <h3>Tank</h3>
+            <p class="desc">Main battle tank (Abrams style). Rotating turret.</p>
+            <div class="specs">Budget: 1500 tris | Ref: Kenney tank desert</div>
+        </div>
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">unit</span>
+            <h3>Artillery</h3>
+            <p class="desc">Mobile howitzer. Elevating gun barrel.</p>
+            <div class="specs">Budget: 1500 tris | Ref: Kenney artillery</div>
+        </div>
+    </div>
+
+    <h2>🏢 Buildings (USA)</h2>
+    <div class="grid">
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">building</span>
+            <h3>CommandCenter</h3>
+            <p class="desc">Large command post with antennas and dishes.</p>
+            <div class="specs">Budget: 3000 tris | Ref: Quaternius base</div>
+        </div>
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">building</span>
+            <h3>Barracks</h3>
+            <p class="desc">Low-poly troop training facility with sandbags.</p>
+            <div class="specs">Budget: 2000 tris | Ref: Kenney barracks</div>
+        </div>
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">building</span>
+            <h3>Factory</h3>
+            <p class="desc">Industrial vehicle production plant.</p>
+            <div class="specs">Budget: 2500 tris | Ref: Kenney factory</div>
+        </div>
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">building</span>
+            <h3>SupplyDepot</h3>
+            <p class="desc">Storage warehouse with crates and barrels.</p>
+            <div class="specs">Budget: 2000 tris | Ref: Kenney warehouse</div>
+        </div>
+    </div>
+
+    <h2>🗺️ Environment & UI</h2>
+    <div class="grid">
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">texture</span>
+            <h3>Grass & Sand</h3>
+            <p class="desc">Stylized terrain tiles. Seamless.</p>
+            <div class="specs">Format: PNG 1024x1024 | Ref: Kenney textures</div>
+        </div>
+        <div class="asset-card">
+            <input type="checkbox" class="checkbox">
+            <span class="type-tag">ui</span>
+            <h3>Icons Set</h3>
+            <p class="desc">UI icons for all units/buildings. Silhouettes.</p>
+            <div class="specs">Format: PNG 256x256 | Ref: Kenney icons</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px; text-align: center; color: #444;">
+        GENERALS: MOBILE COMMAND — Design Dept.
+    </div>
+</body>
+</html>
