@@ -49,4 +49,39 @@ router.post('/players/gift', (req, res) => {
     res.json({ success: true });
 });
 
+// Получение данных игрока
+router.get('/players/:id', (req, res) => {
+    const playerId = req.params.id;
+    // Mock data
+    res.json({
+        id: playerId,
+        email: "player@example.com",
+        elo: 1250,
+        gold: 50000,
+        level: 15
+    });
+});
+
+// Обновление данных игрока
+router.post('/players/update', (req, res) => {
+    const { playerId, elo, gold } = req.body;
+    console.log(`[Admin] Данные игрока ${playerId} обновлены: ELO=${elo}, Gold=${gold}`);
+    res.json({ success: true });
+});
+
+// Глобальное уведомление
+router.post('/broadcast', (req, res) => {
+    const { message } = req.body;
+    console.log(`[Admin] Глобальное сообщение: ${message}`);
+    // В реальности - broadcast через Colyseus
+    res.json({ success: true });
+});
+
+// Управление Live-ивентами
+router.post('/events/start', (req, res) => {
+    const { eventType, multiplier, duration } = req.body;
+    console.log(`[Admin] Запущен ивент: ${eventType}, Множитель: ${multiplier}, Длительность: ${duration}м`);
+    res.json({ success: true });
+});
+
 module.exports = router;
