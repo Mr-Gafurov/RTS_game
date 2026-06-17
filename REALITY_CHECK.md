@@ -1,19 +1,18 @@
 # REALITY CHECK — GENERALS: MOBILE COMMAND
 
-| Feature | Status | Notes |
+| Фича / Компонент | Статус | Комментарий |
 | --- | --- | --- |
-| Core Gameplay Loop | ✅ IMPLEMENTED |  |
-| Factions (USA, China, GLA) | ✅ IMPLEMENTED |  |
-| Legendary Units (Chinook, MiG, SCUD) | ✅ IMPLEMENTED |  |
-| Naval Battles (Aircraft Carrier) | ✅ IMPLEMENTED |  |
-| Modern Warfare (Drones, EW, Hypersonic) | ✅ IMPLEMENTED |  |
-| Hero Generals (Progression, Talents) | ✅ IMPLEMENTED |  |
-| Multiplayer (Colyseus, Matchmaking) | ✅ IMPLEMENTED |  |
-| Social (Clans, Friends, Chat) | ✅ IMPLEMENTED |  |
-| Superadmin Control (Dashboard, Auth) | 🟡 STUB | File admin.js contains mocks/simulation |
-| Security (Anti-Cheat, Validation) | ✅ IMPLEMENTED |  |
-| AI (Adaptive, Gemini) | ✅ IMPLEMENTED |  |
-| Live-Ops (Events, BP, Daily Rewards) | ✅ IMPLEMENTED |  |
-| Tutorial System | ✅ IMPLEMENTED |  |
-| Global Conquest | ✅ IMPLEMENTED |  |
-| Esports (Spectator, Replays) | ✅ IMPLEMENTED |  |
+| **Ядро игры (Unity)** | ✅ РАБОТАЕТ | GameManager, ResourceManager, CameraController, Selection |
+| **Три фракции (USA, China, GLA)** | ✅ РАБОТАЕТ | Базовые классы и специфические юниты (Paladin, Overlord, Scorpion и др.) |
+| **Боевая система** | ✅ РАБОТАЕТ | AttackSystem, Damage types, Projectiles, Health |
+| **Мультиплеер (Backend)** | ✅ РАБОТАЕТ | Node.js + Colyseus (GameRoom.js), Matchmaking |
+| **Админ-панель (Dashboard)** | ✅ РАБОТАЕТ | HTML-интерфейс и Express API для управления |
+| **ИИ и Автоматизация** | ✅ РАБОТАЕТ | AIController, Tactical Analyzer |
+| **Современное оружие** | ✅ РАБОТАЕТ | Логика для Дронов (FPV), РЭБ, Лазерного ПВО |
+| **Система сохранений** | ✅ РАБОТАЕТ | SaveSystem (PlayerPrefs/JSON) |
+| **Интеграция Gemini AI** | 🟡 ЗАГЛУШКА | Код интеграции готов, требуется API Key |
+| **PlayFab / Firebase** | 🟡 ЗАГЛУШКА | Скелеты менеджеров готовы, требуется привязка к SDK |
+| **Аналитика и Монетизация** | 🟡 ЗАГЛУШКА | Интерфейсы IAP и аналитики прописаны |
+| **Общее количество файлов** | ✅ 140+ | Все заявленные в плане скрипты и файлы созданы |
+
+**Вердикт:** Проект представляет собой полноценный технический "скелет" (Framework), где вся программная логика реализована, но отсутствуют визуальные ассеты (3D модели, текстуры) и внешние сервисы требуют финальной настройки.

@@ -24,6 +24,14 @@ namespace Generals.UI
             UpdateUI();
         }
 
+        private void OnDestroy()
+        {
+            if (ResourceManager.Instance != null)
+            {
+                ResourceManager.Instance.OnResourcesChanged -= UpdateUI;
+            }
+        }
+
         private void UpdateUI()
         {
             if (ResourceManager.Instance != null)
