@@ -4,32 +4,32 @@ using System;
 namespace Generals.Buildings
 {
     using Generals.Units;
+    using Generals.Core;
 
     /// <summary>
-    /// Базовый класс для всех зданий в игре.
+    /// Базовый класс для всех зданий.
     /// </summary>
     [Serializable]
     public abstract class BaseBuilding : MonoBehaviour
     {
-        [Header("Характеристики здания")]
+        [Header("Базовые параметры")]
         public string buildingName;
         public FactionType faction;
         public float maxHealth = 500f;
         public float currentHealth;
-        public int cost = 500;
-        public float energyConsumption = 10f;
-        public float buildTime = 10f;
+        public int cost = 1000;
+        public float energyConsumption = 10f; // Положительное - потребляет, отрицательное - производит
 
-        [Header("Состояние")]
-        public bool isConstructed = false;
-        public bool isSelected = false;
-
-        public event Action OnDeath;
         public event Action<float> OnHealthChanged;
+        public event Action OnDestroyed;
 
         protected virtual void Start()
         {
             currentHealth = maxHealth;
+            if (ResourceManager.Instance != null)
+            {
+                ResourceManager.Instance.RegisterBuilding(this);
+            }
         }
 
         public virtual void TakeDamage(float damage)
@@ -45,18 +45,20 @@ namespace Generals.Buildings
 
         protected virtual void Die()
         {
-            OnDeath?.Invoke();
+            if (ResourceManager.Instance != null)
+            {
+                ResourceManager.Instance.UnregisterBuilding(this);
+            }
+            OnDestroyed?.Invoke();
             Destroy(gameObject);
         }
 
-        public virtual void OnSelect()
+        protected virtual void OnDestroy()
         {
-            isSelected = true;
-        }
-
-        public virtual void OnDeselect()
-        {
-            isSelected = false;
+            if (ResourceManager.Instance != null)
+            {
+                ResourceManager.Instance.UnregisterBuilding(this);
+            }
         }
     }
 }
