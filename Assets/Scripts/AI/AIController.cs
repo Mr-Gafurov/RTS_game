@@ -36,8 +36,8 @@ namespace Generals.AI
         private void PerformTick()
         {
             // Главный цикл принятия решений ИИ
-            _buildingStrategy?.EvaluateBuildingNeeds();
-            _unitCommander?.EvaluateTacticalSituation();
+            _buildingStrategy?.ExecuteStep();
+            _unitCommander?.CommandUnits();
         }
 
         public void AdaptToPlayer(AIPersonality newPersonality)

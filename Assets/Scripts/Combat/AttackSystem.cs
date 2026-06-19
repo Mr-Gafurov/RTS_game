@@ -4,6 +4,7 @@ namespace Generals.Combat
 {
     using Generals.Units;
     using Generals.Buildings;
+    using Generals.Core;
 
     /// <summary>
     /// Продвинутая система атаки с проверкой фракций.

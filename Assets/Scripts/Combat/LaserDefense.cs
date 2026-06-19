@@ -21,12 +21,12 @@ namespace Generals.Combat
 
         private void TryInterception()
         {
-            // Поиск входящих ракет (Projectile) в радиусе
-            var targets = GameObject.FindObjectsOfType<Projectile>();
-            foreach (var target in targets)
+            // Поиск входящих ракет (Projectile) в радиусе из статического списка (оптимизировано)
+            var targets = Projectile.AllProjectiles;
+            for (int i = targets.Count - 1; i >= 0; i--)
             {
-                // Игнорирует гиперзвуковые ракеты
-                if (target is HypersonicMissile) continue;
+                var target = targets[i];
+                if (target == null || target is HypersonicMissile) continue;
 
                 if (Vector3.Distance(transform.position, target.transform.position) <= range)
                 {

@@ -1,58 +1,57 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Generals.Combat
 {
-    using Generals.Units;
-
     /// <summary>
-    /// Логика полета снаряда.
+    /// Базовый класс для всех снарядов в игре.
     /// </summary>
-    public class Projectile : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour
     {
-        public float speed = 50f;
+        public float speed = 20f;
         public float damage = 10f;
-        public float splashRadius = 0f;
-        public GameObject explosionEffect;
+        protected Transform target;
 
-        private Vector3 _targetPos;
-        private bool _isInitialized = false;
+        public static List<Projectile> AllProjectiles = new List<Projectile>();
 
-        public void Initialize(Vector3 target)
+        protected virtual void OnEnable()
         {
-            _targetPos = target;
-            _isInitialized = true;
+            AllProjectiles.Add(this);
+        }
+
+        protected virtual void OnDisable()
+        {
+            AllProjectiles.Remove(this);
+        }
+
+        public virtual void Launch(Transform targetTransform)
+        {
+            target = targetTransform;
+        }
+
+        protected virtual void Update()
+        {
+            if (target == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            MoveTowardsTarget();
+        }
+
+        protected virtual void MoveTowardsTarget()
+        {
+            Vector3 direction = (target.position - transform.position).normalized;
+            transform.position += direction * speed * Time.deltaTime;
             transform.LookAt(target);
-        }
 
-        private void Update()
-        {
-            if (!_isInitialized) return;
-
-            transform.position = Vector3.MoveTowards(transform.position, _targetPos, speed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, _targetPos) < 0.1f)
+            if (Vector3.Distance(transform.position, target.position) < 0.5f)
             {
-                Explode();
+                HitTarget();
             }
         }
 
-        private void Explode()
-        {
-            if (splashRadius > 0)
-            {
-                // Поиск целей в радиусе и нанесение урона
-                Collider[] colliders = Physics.OverlapSphere(transform.position, splashRadius);
-                foreach (var col in colliders)
-                {
-                    var unit = col.GetComponent<BaseUnit>();
-                    if (unit != null) unit.TakeDamage(damage);
-                }
-            }
-
-            if (explosionEffect != null)
-                Instantiate(explosionEffect, transform.position, Quaternion.identity);
-
-            Destroy(gameObject);
-        }
+        protected abstract void HitTarget();
     }
 }

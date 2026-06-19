@@ -1,47 +1,30 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System;
 
 namespace Generals.Core
 {
-    [Serializable]
-    public class LiveEvent
-    {
-        public string id;
-        public string title;
-        public DateTime endTime;
-        public float xpMultiplier = 1.0f;
-    }
-
     /// <summary>
-    /// Менеджер Live-Ops событий.
+    /// Глобальная система событий для уведомления UI и других систем.
     /// </summary>
-    public class EventManager : MonoBehaviour
+    public static class EventManager
     {
-        public static EventManager Instance { get; private set; }
+        public static event Action<string> OnNotification;
+        public static event Action<string, int> OnTechUnlocked;
+        public static event Action<EWLevel> OnEWActivated;
 
-        public List<LiveEvent> activeEvents = new List<LiveEvent>();
-
-        private void Awake()
+        public static void TriggerNotification(string message)
         {
-            Instance = this;
+            OnNotification?.Invoke(message);
         }
 
-        public void RefreshEvents()
+        public static void TriggerTechUnlocked(string techId, int level)
         {
-            // Логика получения событий с сервера
-            Debug.Log("[EventManager] Обновление списка событий...");
+            OnTechUnlocked?.Invoke(techId, level);
         }
 
-        public float GetCurrentXPMultiplier()
+        public static void TriggerEWActivated(EWLevel level)
         {
-            float maxMult = 1.0f;
-            foreach (var ev in activeEvents)
-            {
-                if (DateTime.Now < ev.endTime)
-                    maxMult = Mathf.Max(maxMult, ev.xpMultiplier);
-            }
-            return maxMult;
+            OnEWActivated?.Invoke(level);
         }
     }
 }

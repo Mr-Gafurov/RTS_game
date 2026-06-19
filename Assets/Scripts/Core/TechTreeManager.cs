@@ -68,11 +68,11 @@ namespace Generals.Core
             TechNode node = technologies.Find(t => t.id == techId);
             if (node != null && node.currentLevel < node.maxLevel)
             {
-                // Проверка ресурсов игрока через ResourceManager
                 if (ResourceManager.Instance.SpendMoney(node.costPerLevel))
                 {
                     node.currentLevel++;
                     ApplyTechEffects(node);
+                    EventManager.TriggerTechUnlocked(node.id, node.currentLevel);
                     Debug.Log($"[TechTree] Технология {node.techName} улучшена до уровня {node.currentLevel}");
                 }
             }
@@ -82,9 +82,11 @@ namespace Generals.Core
         {
             if (node.id == "ew_system")
             {
-                ElectronicWarfareManager.Instance.currentLevel = (EWLevel)node.currentLevel;
+                if (ElectronicWarfareManager.Instance != null)
+                {
+                    ElectronicWarfareManager.Instance.currentLevel = (EWLevel)node.currentLevel;
+                }
             }
-            // Другие эффекты...
         }
 
         public void UnlockTechnology(string techId)
@@ -93,6 +95,7 @@ namespace Generals.Core
             if (node != null)
             {
                 node.isUnlocked = true;
+                EventManager.TriggerNotification($"Технология {node.techName} разблокирована!");
                 Debug.Log($"[TechTree] Технология {node.techName} разблокирована!");
             }
         }

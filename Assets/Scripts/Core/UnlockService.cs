@@ -26,15 +26,15 @@ namespace Generals.Core
         public void ProcessMissionCompletion(MissionData mission, bool isHardDifficulty)
         {
             // Пример: Если миссия пройдена на высоком уровне сложности, открываем авианосцы.
-            if (isHardDifficulty && mission.missionName.Contains("Desert Storm"))
+            if (isHardDifficulty && mission.title.Contains("Desert Storm"))
             {
                 UnlockContent("SEA_UNITS_CARRIER");
             }
 
             // Награда за любую победу в этой миссии
-            if (!string.IsNullOrEmpty(mission.unlockUnitKey))
+            if (!string.IsNullOrEmpty(mission.unlockTechId))
             {
-                UnlockContent(mission.unlockUnitKey);
+                UnlockContent(mission.unlockTechId);
             }
         }
 

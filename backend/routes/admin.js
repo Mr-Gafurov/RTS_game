@@ -2,20 +2,34 @@ const express = require('express');
 const router = express.Router();
 const { users, authenticate } = require('../auth');
 
+const SECRET_TOKEN = process.env.ADMIN_TOKEN || require('crypto').randomBytes(32).toString('hex');
+
+// Middleware для проверки авторизации
+const authMiddleware = (req, res, next) => {
+    const token = req.headers['authorization'];
+    if (token === SECRET_TOKEN) {
+        next();
+    } else {
+        res.status(403).json({ success: false, message: "Forbidden: Access Denied" });
+    }
+};
+
 // Логин
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
     const user = authenticate(email, password);
     if (user) {
-        res.json({ success: true, user: { email: user.email, role: user.role }, token: "mock-jwt-token" });
+        res.json({ success: true, user: { email: user.email, role: user.role }, token: SECRET_TOKEN });
     } else {
         res.status(401).json({ success: false, message: "Invalid credentials" });
     }
 });
 
-// Получение статистики (только для админов)
+// Все маршруты ниже требуют авторизации
+router.use(authMiddleware);
+
+// Получение статистики
 router.get('/stats', (req, res) => {
-    // В реальности здесь будет обращение к Colyseus gameServer
     res.json({
         activeRooms: 5,
         playersOnline: 42,
@@ -24,9 +38,8 @@ router.get('/stats', (req, res) => {
     });
 });
 
-// Управление пользователями (только для Superadmin)
+// Управление пользователями
 router.get('/users', (req, res) => {
-    // Не отправляем пароли в ответе
     const sanitizedUsers = users.map(u => ({ email: u.email, role: u.role }));
     res.json(sanitizedUsers);
 });
@@ -51,46 +64,10 @@ router.post('/players/gift', (req, res) => {
     res.json({ success: true });
 });
 
-// Получение данных игрока
-router.get('/players/:id', (req, res) => {
-    const playerId = req.params.id;
-    // Mock data
-    res.json({
-        id: playerId,
-        email: "player@example.com",
-        elo: 1250,
-        gold: 50000,
-        level: 15
-    });
-});
-
-// Обновление данных игрока
-router.post('/players/update', (req, res) => {
-    const { playerId, elo, gold } = req.body;
-    console.log(`[Admin] Данные игрока ${playerId} обновлены: ELO=${elo}, Gold=${gold}`);
-    res.json({ success: true });
-});
-
 // Глобальное уведомление
 router.post('/broadcast', (req, res) => {
     const { message } = req.body;
     console.log(`[Admin] Глобальное сообщение: ${message}`);
-    // В реальности - broadcast через Colyseus
-    res.json({ success: true });
-});
-
-// Управление Live-ивентами
-router.post('/events/start', (req, res) => {
-    const { eventType, multiplier, duration } = req.body;
-    console.log(`[Admin] Запущен ивент: ${eventType}, Множитель: ${multiplier}, Длительность: ${duration}м`);
-    res.json({ success: true });
-});
-
-// Обновление баланса в реальном времени
-router.post('/balance/update', (req, res) => {
-    const { unitId, field, value } = req.body;
-    console.log(`[Admin] Баланс обновлен: ${unitId} -> ${field}: ${value}`);
-    // Сохранение в БД и раздача через GET /api/balance/current
     res.json({ success: true });
 });
 

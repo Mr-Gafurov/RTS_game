@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+using Generals.Core;
 namespace Generals.Units.USA
 {
     /// <summary>

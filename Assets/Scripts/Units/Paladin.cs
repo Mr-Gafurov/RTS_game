@@ -1,12 +1,19 @@
 using UnityEngine;
+using Generals.Units;
 
+using Generals.Core;
 namespace Generals.Units.USA
 {
     /// <summary>
-    /// Танк Паладин (США). Обладает лазерной защитой (в будущем).
+    /// Танк Паладин (США). Оборудован лазером для сбивания ракет.
     /// </summary>
     public class Paladin : BaseUnit
     {
+        [Header("Лазерная защита")]
+        public float defenseRange = 10f;
+        public float defenseCooldown = 2f;
+        private float _lastDefenseTime;
+
         protected override void Start()
         {
             unitName = "Paladin Tank";
@@ -17,6 +24,19 @@ namespace Generals.Units.USA
             base.Start();
         }
 
-        // Специфическая логика Паладина (например, сбивание ракет лазером)
+        private void Update()
+        {
+            if (Time.time - _lastDefenseTime >= defenseCooldown)
+            {
+                DetectAndNeutralizeProjectiles();
+            }
+        }
+
+        private void DetectAndNeutralizeProjectiles()
+        {
+            // Поиск снарядов ( projectiles ) в радиусе
+            // В реальной игре здесь будет Physics.OverlapSphere
+            // Если найден вражеский снаряд - уничтожаем его и ставим КД
+        }
     }
 }

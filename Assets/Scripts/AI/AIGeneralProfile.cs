@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace Generals.AI
 {
+    using Generals.Core;
+
     /// <summary>
     /// Профиль личности ИИ-Генерала с уникальными бонусами и тактикой.
     /// </summary>

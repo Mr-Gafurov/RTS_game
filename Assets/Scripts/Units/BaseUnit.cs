@@ -3,12 +3,7 @@ using System;
 
 namespace Generals.Units
 {
-    public enum FactionType
-    {
-        USA,
-        China,
-        GLA
-    }
+    using Generals.Core;
 
     /// <summary>
     /// Базовый класс для всех юнитов в игре.

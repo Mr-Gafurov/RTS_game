@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using Generals.Core;
 namespace Generals.Units.USA
 {
     /// <summary>

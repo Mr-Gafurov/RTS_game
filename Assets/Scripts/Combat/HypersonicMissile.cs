@@ -3,20 +3,15 @@ using UnityEngine;
 namespace Generals.Combat
 {
     /// <summary>
-    /// Гиперзвуковая ракета. Очень быстрая, мощная, игнорирует стандартную ПВО.
+    /// Специальный тип ракеты, которую нельзя перехватить лазером.
     /// </summary>
     public class HypersonicMissile : Projectile
     {
-        public float acceleration = 20f;
-        public bool isStealth = true;
-
-        protected void Update()
+        protected override void HitTarget()
         {
-            // Ускорение в полете
-            speed += acceleration * Time.deltaTime;
-            base.Update();
+            // Логика взрыва
+            Debug.Log("[Hypersonic] Цель поражена!");
+            Destroy(gameObject);
         }
-
-        // Переопределение попадания для нанесения критического урона зданиям
     }
 }

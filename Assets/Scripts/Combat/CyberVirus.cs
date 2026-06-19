@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using Generals.Core;
 namespace Generals.Combat
 {
     using Generals.Units;
